@@ -1,0 +1,56 @@
+---
+import Card from "../../components/Card.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import { getMenuBySystem } from "../../services/menuServices/menuService";
+
+const menu = getMenuBySystem("simed");
+---
+
+<MainLayout>
+  <div class="accordion accordion-flush" id="accordionFlushExample">
+    {
+      menu.map((menuItem) => {
+        return (
+          <>
+            <h1 class="display-6">{menuItem.system}</h1>
+            {menuItem.menus.map((item) => {
+              return (
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target={`#${item.name}`}
+                      aria-expanded="false"
+                      aria-controls={`${item.name}`}
+                    >
+                      {item.name}
+                    </button>
+                  </h2>
+                  <div
+                    id={`${item.name}`}
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionFlushExample"
+                  >
+                    <div class="accordion-body row">
+                      {item.submenus.map((sub) => {
+                        return (
+                          <Card
+                            title={sub.name}
+                            body={sub.icon}
+                            href={sub.url}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        );
+      })
+    }
+  </div>
+</MainLayout>

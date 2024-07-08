@@ -1,0 +1,229 @@
+---
+import Card from "../components/Card.astro";
+import Header from "../components/Header.astro";
+import type Menu from "../interfaces/IMenu";
+import Layout from "./Layout.astro";
+
+// const _menu = await fetch(
+//   "https://rishidovalle88.github.io/FolhaDeAlphaville_Adm/assets/data/menu.json"
+// );
+// const menu = (await _menu.json()) as Menu;
+
+import menu from "../data/menu.json";
+import SideMenu from "../components/SideMenu.astro";
+
+const isIndexPage = Astro.url.pathname === "/";
+---
+
+<style>
+  /* Defina o grid container */
+  .container-custom {
+    display: grid;
+    grid-template-columns: 264px 1fr; /* Uma coluna */
+    grid-template-rows: 50px 1fr 50px; /* Três linhas: cabeçalho, conteúdo e rodapé */
+    min-height: 100vh; /* Altura mínima da página */
+
+    grid-template-areas:
+      "side header"
+      "side main"
+      "side footer";
+
+    transition: all 0.5s;
+  }
+
+  /* Defina o posicionamento dos elementos */
+  header {
+    grid-area: header;
+  }
+
+  main {
+    grid-area: main;
+  }
+
+  side {
+    grid-area: side;
+    height: 100vh;
+  }
+
+  side .side-header {
+    height: 50px;
+    border-bottom: 1px solid #4b545c;
+    color: #fff;
+
+    display: flex;
+    align-items: center;    
+  }
+
+  footer {
+    grid-area: footer;
+  }
+
+  i {
+    width: 16px;
+  }
+
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
+
+  .accordion-header > button > span {
+    transition: ease-in-out .5s;
+  }
+
+  .accordion-header.close > button > span {
+    color: transparent;
+    
+  }
+
+  .side-profile div span:last-child {
+    transition: ease-in-out .5s;
+  }
+  .side-profile.close div span:last-child {
+    opacity: 0;
+  }
+</style>
+<Layout title="Folha de Alphaville">
+  <div class="container-custom">
+    <header class="d-flex justify-content-between p-2 shadow-sm bg-light bg-gradient">
+      <button class="btn btn-outline-secondary border-0" id="btn-menu"><i class="fa-solid fa-bars"></i></button>      
+    </header>
+    <side class="card rounded-0 overflow-y-auto"  data-bs-theme="dark">
+      <div class="side-header ps-3">
+        <span>FALP</span>
+      </div>
+      <div class="side-profile ms-1 p-2">
+        <div class="border-bottom d-flex align-items-center py-2">
+          <span class="p-2">
+            <img class="rounded-circle shadow" width="34" src="https://avatars.githubusercontent.com/u/9632197?v=4" alt="" srcset="">
+          </span>
+          <span>Rishi do Valle</span>
+        </div>
+      </div>
+      <div class="side-content py-3" data-bs-theme="dark">
+        <div class="system ms-3">
+          <small>simed</small>
+        </div>
+        <div class="accordion ms-2" id="accordionPanelsStayOpenExample">
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed gap-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                <i class="fa-solid fa-plus"></i>
+                <span>Cadastro</span>
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+              <div class="accordion-body">
+                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed gap-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                <i class="fa-regular fa-file-lines"></i>                
+                <span>Anúncios</span>
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+              <div class="accordion-body">
+                <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed gap-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>Consultas</span>                
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+              <div class="accordion-body">
+                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </side>
+    <main class="p-4">
+      <!-- Conteúdo principal -->
+      <p>Bem-vindo ao meu site!</p>
+    </main>
+    <footer class="p-3 shadow bg-light bg-gradient">
+      <!-- Conteúdo do rodapé -->
+      <p>&copy; 2024 Todos os direitos reservados.</p>
+    </footer>
+  </div>
+  <!-- <Header menu={menu} isIndexPage={isIndexPage} />
+  <SideMenu menu={menu}/>
+  <div class="container mt-5">
+    
+    <slot />
+
+    {
+      isIndexPage && (
+        <div class="row mb-4">
+          {menu.data.map((_menu) => {
+            return (
+              <a class="col-6" href={_menu.url}>
+                <div
+                  class="card align-middle d-flex align-items-center justify-content-center animation-selected"
+                  style="height: 128px;"
+                >
+                  <span class="display-6 text-uppercase">{_menu.system}</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      )
+    }
+  </div> -->
+</Layout>
+
+<script>
+  const gridContainer = document.querySelector(".container-custom") as HTMLElement;
+  const sideContainer = document.querySelector("side");
+  const btnMenu = document.querySelector("#btn-menu");
+  let toggle = false;
+
+  // Altere a propriedade grid-template-columns
+  function alterarColunas() {
+    toggle = !toggle;
+    const col = toggle ? "80" : "264";
+    gridContainer.style.gridTemplateColumns = `${col}px 1fr`;
+
+    HandleSideMenuItens(true)
+  }
+
+  // Exemplo: alterar as colunas quando um botão for clicado
+  const botaoAlterar = document.getElementById("botao-alterar");
+  //gridContainer.addEventListener("click", alterarColunas);
+
+  btnMenu?.addEventListener("click", alterarColunas);
+
+  sideContainer?.addEventListener("mouseover", () => {
+    const col = "264";
+    gridContainer.style.gridTemplateColumns = `${col}px 1fr`;
+    HandleSideMenuItens(false);
+  });
+
+  sideContainer?.addEventListener("mouseleave", () => {    
+    const col = toggle && "80";
+    gridContainer.style.gridTemplateColumns = `${col}px 1fr`;
+    toggle && HandleSideMenuItens(true);
+  });
+
+  function HandleSideMenuItens(block = true){
+    document.querySelectorAll(".accordion-header").forEach(el => {
+      block ? el.classList.add('close') : el.classList.remove('close');
+    })
+
+    block ?
+    document.querySelector('.side-profile')?.classList.add('close') :
+    document.querySelector('.side-profile')?.classList.remove('close');
+  }
+</script>

@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Welcome to Astro.">
+    <div class="d-flex justify-content-center align-items-center flex-column gap-4" style="height: 100vh;">
+        <h1 class="display-6">Folha de Alphaville</h1>
+        <form class="bg-light p-4 shadow rounded">
+            <div class="mb-3">
+              <label for="username" class="form-label">Usuário</label>
+              <input type="text" class="form-control" id="username" aria-describedby="usernameHelp">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Senha</label>
+              <input type="password" class="form-control" id="password">
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="HandleLogin(event)">Submit</button>
+          </form>
+    </div>
+
+    <div class="toast-container top-0 start-50 translate-middle-x p-3">
+        <div id="liveToast" class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Login</strong>                
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Usuário ou senha incorretos
+            </div>
+        </div>
+    </div>
+</Layout>
+
+
+
+<script is:inline>
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+
+    const erroLoginToastEl = bootstrap.Toast.getOrCreateInstance(document.getElementById("liveToast"))
+
+    function HandleLogin(event) {
+        event.preventDefault();
+        
+        if (username.value === "admin" && password.value === "1234") {
+            location.href = "https://rishidovalle88.github.io/FolhaDeAlphaville_Adm/src/index";
+            return;
+        }
+
+        erroLoginToastEl.show();
+        setTimeout(() => {
+            erroLoginToastEl.hide();
+        }, 5000)
+    }
+
+
+</script>

@@ -1,0 +1,88 @@
+---
+import type Menu from "../interfaces/IMenu";
+
+export interface Props {
+    menu: Menu
+}
+
+
+const { menu } = Astro.props;
+---
+
+<aside id="sidebar">
+    <div class="h-100">
+        <div class="sidebar-logo d-flex justify-content-between align-content-center ">
+            <a href="#">FALP</a>
+
+            <button type="button" name="" id="" class="btn text-light menu-toggle">
+                X
+            </button>
+
+        </div>
+        <!-- Sidebar Navigation -->
+        <ul class="sidebar-nav">
+            {
+                menu.data.map((item) => {
+                    return (
+                        <>
+                            <li class="sidebar-header">{item.system}</li>                        
+                            
+                            {item.menus.map((submenu) => {
+                                return (
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" 
+                                            aria-expanded="false"
+                                            href="/cadastros">
+                                            <i class={submenu.icon}></i>
+                                            {submenu.name}
+                                        </a>
+                                    </li>
+                                )                        
+                            })}
+                        </>
+                    )
+                })
+            }
+            
+        </ul>
+
+    </div>
+</aside>
+
+
+<script>
+
+    const toggler = document.querySelectorAll(".menu-toggle");
+    toggler.forEach((item) => {
+        item.addEventListener("click", function () {
+            if (isMobileResolution()) {
+                //HandleMainMenu();
+                return;
+            }
+            const sidebar = document.querySelector("#sidebar");
+            sidebar?.classList.toggle("collapsed")
+        });
+    });
+
+    function isMobileResolution() {
+        return window.innerWidth <= 768; // Defina o limite de largura para considerar como dispositivo móvel
+    }
+
+    // Função para alternar a classe "collapsed" no elemento com o ID "sidebar"
+    function toggleSidebar() {
+        const sidebar = document.querySelector("#sidebar");
+        sidebar?.classList.toggle("collapsed");
+    }
+
+    // Verifica a resolução ao carregar a página
+    window.addEventListener("load", function () {
+        if (isMobileResolution()) {
+            toggleSidebar();
+            const btn_menu = document.querySelector("#btn_menu");
+            btn_menu?.classList.toggle("d-none");
+        } else {
+            document.querySelector("#sidebar")?.classList.remove("d-none");
+        }
+    })
+
+</script>

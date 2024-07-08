@@ -1,0 +1,119 @@
+---
+import type Menu from "../interfaces/IMenu";
+
+export interface Props {
+  menu: Menu;
+  isIndexPage: Boolean;
+}
+
+const { menu, isIndexPage } = Astro.props;
+---
+
+<nav class="">
+  <div
+    class="d-flex justify-content-between align-items-center gap-4 px-2 py-1 bg-light"
+  >
+    <a class="navbar-brand" href="#">FALP</a>
+    <div class="navbar-collapse">
+      {
+        !isIndexPage && (
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions"
+          >
+            Menu
+          </button>
+        )
+      }
+    </div>
+    <!-- <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarTogglerDemo02"
+        aria-controls="navbarTogglerDemo02"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {
+            menu.data
+              .filter((x) => x.system === "simed")
+              .map((item) => {
+                return (
+                  <>
+                    {item.menus.map((submenu) => {
+                      return (
+                        <li class="nav-item dropdown">
+                          <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            {submenu.name}
+                          </a>
+                          <ul class="dropdown-menu">
+                            {submenu.submenus.map((sub) => {
+                              return (
+                                <li>
+                                  <a class="dropdown-item" href="#">
+                                    {sub.name}
+                                  </a>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </li>
+                      );
+                    })}
+                  </>
+                );
+              })
+          }
+        </ul> -->
+    <form class="d-flex" role="search">
+      <div class="d-flex justify-content-between align-items-center gap-2">
+        <span class="me-3">Foffa</span>
+
+        <div class="vr"></div>
+        <button
+          type="button"
+          class="btn d-flex flex-row align-items-center gap-2"
+        >
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          Sair
+        </button>
+      </div>
+    </form>
+  </div>
+</nav>
+
+<div
+  class="offcanvas offcanvas-start"
+  data-bs-scroll="true"
+  tabindex="-1"
+  id="offcanvasWithBothOptions"
+  aria-labelledby="offcanvasWithBothOptionsLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+      Backdrop with scrolling
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <p>Try scrolling the rest of the page to see this option in action.</p>
+  </div>
+</div>
